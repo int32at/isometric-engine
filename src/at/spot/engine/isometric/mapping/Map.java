@@ -2,6 +2,7 @@ package at.spot.engine.isometric.mapping;
 
 import java.util.ArrayList;
 
+import at.spot.engine.isometric.graphics.Graphics;
 import at.spot.engine.isometric.mapping.tiles.Tile;
 import at.spot.engine.isometric.mapping.tiles.TileDefinition;
 
@@ -28,6 +29,10 @@ public class Map {
 		for (Tile t : gameMap) {
 			t.draw();
 		}
+	}
+	
+	public void update() {
+		Graphics.instance().render(this);
 	}
 
 	public void zoomIn() {

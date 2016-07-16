@@ -56,10 +56,8 @@ public class Graphics {
 		}
 		
 		map.draw();
+		
 		Display.update();
-		
-		
-		
 		Display.sync(60);
 	}
 

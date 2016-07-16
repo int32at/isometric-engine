@@ -6,7 +6,7 @@ public class GraphicsDefinition {
 	private int width, height;
 	
 	public GraphicsDefinition() {
-		this("Isometric Engine", 2000, 1000);
+		this("Isometric Engine", 1000, 500);
 	}
 
 	public GraphicsDefinition(String title, int width, int height) {
