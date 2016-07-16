@@ -1,11 +1,13 @@
-package data;
+package at.spot.engine.isometric.game;
 
-import static helpers.Graphics.*;
+import static at.spot.engine.isometric.graphics.Graphics.initDisplay;
 
 import org.lwjgl.Sys;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
+
+import at.spot.engine.isometric.mapping.Map;
 
 public class Game {
 	private Map map;

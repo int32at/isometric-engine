@@ -1,6 +1,7 @@
-package data;
+package at.spot.engine.isometric.graphics.tiles;
 
-import static helpers.Graphics.*;
+import static at.spot.engine.isometric.graphics.Graphics.drawTile;
+import static at.spot.engine.isometric.graphics.Graphics.loadTexture;
 
 import org.newdawn.slick.opengl.Texture;
 

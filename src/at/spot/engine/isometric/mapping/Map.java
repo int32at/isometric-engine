@@ -1,5 +1,10 @@
-package data;
+package at.spot.engine.isometric.mapping;
+
 import java.util.ArrayList;
+
+import at.spot.engine.isometric.graphics.Spritesheet;
+import at.spot.engine.isometric.graphics.tiles.Tile;
+import at.spot.engine.isometric.graphics.tiles.TileType;
 
 public class Map {
 

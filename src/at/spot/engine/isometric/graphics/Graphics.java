@@ -1,4 +1,4 @@
-package helpers;
+package at.spot.engine.isometric.graphics;
 
 import static org.lwjgl.opengl.GL11.*;
 
@@ -15,8 +15,8 @@ import org.newdawn.slick.util.ResourceLoader;
 
 public class Graphics {
 
-	private static final int WIDTH = 1280;
-	private static final int HEIGHT = 960;
+	private static final int WIDTH = 720;
+	private static final int HEIGHT = 480;
 
 	// private String title;
 
