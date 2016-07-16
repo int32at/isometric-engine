@@ -19,15 +19,15 @@ public class TextureManager {
 		return mgr;
 	}
 	
-	private HashMap<String, Texture> textureCache = new HashMap<String, Texture>();
+	private HashMap<String, Texture> tileTextureCache = new HashMap<String, Texture>();
 	
-	public Texture loadTexture(String name) {
+	public Texture loadTileTexture(String name) {
 		
-		if(!textureCache.containsKey(name)) {
-			textureCache.put(name, textureLoad("res/" + name + ".png", "PNG"));
+		if(!tileTextureCache.containsKey(name)) {
+			tileTextureCache.put(name, textureLoad("res/tiles/" + name + ".png", "PNG"));
 		}
 		
-		return textureCache.get(name);
+		return tileTextureCache.get(name);
 	}
 	
 	private Texture textureLoad(String path, String fileType) {

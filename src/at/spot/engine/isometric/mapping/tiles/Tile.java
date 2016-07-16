@@ -27,7 +27,7 @@ public class Tile {
 		this.x = x;
 		this.y = y;
 		this.type = type;
-		this.texture = TextureManager.instance().loadTexture(type.textureName);
+		this.texture = TextureManager.instance().loadTileTexture(type.textureName);
 	}
 
 	public TileType getType() {
