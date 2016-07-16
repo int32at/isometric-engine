@@ -11,7 +11,7 @@ public class KeyboardControls {
 
 	}
 
-	public static void tick(Map map) {
+	public void update(Map map) {
 		while (Keyboard.next()) {
 			if (Keyboard.getEventKey() == Keyboard.KEY_MINUS) {
 				if (Keyboard.getEventKeyState()) {

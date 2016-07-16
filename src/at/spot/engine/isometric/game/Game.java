@@ -1,88 +1,36 @@
 package at.spot.engine.isometric.game;
 
-import static at.spot.engine.isometric.graphics.Graphics.initDisplay;
-
-import org.lwjgl.Sys;
-import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
-import org.lwjgl.opengl.GL11;
 
 import at.spot.engine.isometric.controls.KeyboardControls;
+import at.spot.engine.isometric.graphics.Graphics;
+import at.spot.engine.isometric.graphics.GraphicsDefinition;
 import at.spot.engine.isometric.mapping.Map;
+import at.spot.engine.isometric.mapping.MapDefinition;
 
 public class Game {
 	private Map map;
 
-	private long lastFrame;
+	private KeyboardControls controls;
 
-	private int fps;
-	private long lastFPS;
+	public Game(GraphicsDefinition gfx, MapDefinition mapDef) {
+		
+		Graphics.instance().init(gfx);
 
-	int[][] testMap = { { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
-			{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
-			{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
-			{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
-			{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
-			{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
-			{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
-			{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
-			{ 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1 },
-			{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
-			{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
-			{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
-			{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
-			{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
-			{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
-			{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 }
+		controls = new KeyboardControls();
 
-	};
-
-	public Game() {
-		initDisplay();
-
-		getDelta();
-		lastFPS = getTime();
-		map = new Map(testMap);
+		map = new Map(mapDef);
 	}
 
-	public int getDelta() {
-		long time = getTime();
-		int delta = (int) (time - lastFrame);
-		lastFrame = time;
-		return delta;
+	private void update() {
+		controls.update(map);
+		Graphics.instance().render(map);
 	}
 
-	public long getTime() {
-		return (Sys.getTime() * 1000) / Sys.getTimerResolution();
-	}
-
-	public void render() {
-		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
-		map.draw();
-
-		Display.update();
-		Display.sync(60);
-	}
-
-	public void updateFPS() {
-		if (getTime() - lastFPS > 1000) {
-			Display.setTitle("FPS: " + fps);
-			fps = 0;
-			lastFPS += 1000;
-		}
-		fps++;
-	}
-
-	private void tick(int delta) {
-		updateFPS();
-		KeyboardControls.tick(map);
-	}
 
 	public void run() {
 		while (!Display.isCloseRequested()) {
-			int delta = getDelta();
-			tick(delta);
-			render();
+			update();
 		}
 	}
 

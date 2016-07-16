@@ -1,38 +1,70 @@
 package at.spot.engine.isometric.graphics;
 
-import static org.lwjgl.opengl.GL11.*;
-
-import java.io.IOException;
-import java.io.InputStream;
+import static org.lwjgl.opengl.GL11.GL_MODELVIEW;
+import static org.lwjgl.opengl.GL11.GL_NEAREST;
+import static org.lwjgl.opengl.GL11.GL_PROJECTION;
+import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
+import static org.lwjgl.opengl.GL11.GL_TEXTURE_MAG_FILTER;
+import static org.lwjgl.opengl.GL11.GL_TEXTURE_MIN_FILTER;
+import static org.lwjgl.opengl.GL11.glClearColor;
+import static org.lwjgl.opengl.GL11.glEnable;
+import static org.lwjgl.opengl.GL11.glLoadIdentity;
+import static org.lwjgl.opengl.GL11.glMatrixMode;
+import static org.lwjgl.opengl.GL11.glOrtho;
+import static org.lwjgl.opengl.GL11.glTexParameterf;
+import static org.lwjgl.opengl.GL11.glViewport;
 
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
+import org.lwjgl.opengl.GL11;
 
-import org.newdawn.slick.opengl.Texture;
-import org.newdawn.slick.opengl.TextureLoader;
-import org.newdawn.slick.util.ResourceLoader;
+import at.spot.engine.isometric.mapping.Map;
 
 public class Graphics {
 
-	private static final int WIDTH = 720;
-	private static final int HEIGHT = 480;
+	private static Graphics instance;
 
-	// private String title;
+	public static Graphics instance() {
+		if (instance == null)
+			instance = new Graphics();
+		return instance;
+	}
 
-	public static void initDisplay() {
+	private String TITLE;
+	private int WIDTH;
+	private int HEIGHT;
 
+	public void init(GraphicsDefinition gfx) {
+
+		TITLE = gfx.getTile();
+		WIDTH = gfx.getWidth();
+		HEIGHT = gfx.getHeight();
+
+		setupDisplay();
+		setupOpenGL();
+	}
+
+	public void render(Map map) {
+		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
+		map.draw();
+		Display.update();
+		Display.sync(60);
+	}
+
+	private void setupDisplay() {
 		try {
 			Display.setDisplayMode(new DisplayMode(WIDTH, HEIGHT));
-			Display.setTitle("isometric game");
+			Display.setTitle(TITLE);
 			Display.create();
 			Display.setVSyncEnabled(true);
 
 		} catch (LWJGLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
 
+	private void setupOpenGL() {
 		glEnable(GL_TEXTURE_2D);
 		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
@@ -47,48 +79,4 @@ public class Graphics {
 		glOrtho(0, WIDTH, HEIGHT, 0, 1, -1);
 		glMatrixMode(GL_MODELVIEW);
 	}
-
-	public static void drawTile(Texture tex, int x, int y, int width, int height) {
-		int halfWidth = width / 2;
-		int halfHeight = height / 2;
-
-		int screenX = (x - y) * halfWidth;
-		int screenY = (x + y) * halfHeight;
-		
-		tex.bind();
-		glTranslatef(x, y, 0);
-		
-		glBegin(GL_QUADS);
-			glTexCoord2f(0, 0);
-			glVertex2f(screenX, screenY);
-			glTexCoord2f(1, 0);
-			glVertex2f(screenX + halfWidth, screenY + halfHeight);
-			glTexCoord2f(1, 1);
-			glVertex2f(screenX, screenY + height);
-			glTexCoord2f(0, 1);
-			glVertex2f(screenX - halfWidth, screenY + halfHeight);
-		glEnd();
-		glLoadIdentity();
-		
-
-	}
-	
-	public static Texture textureLoad(String path, String fileType){
-		Texture tex = null;
-		InputStream in = ResourceLoader.getResourceAsStream(path);
-		try{
-			tex = TextureLoader.getTexture(fileType, in);
-		}catch(IOException e){
-			e.printStackTrace();
-		}
-		return tex;
-	}
-	
-	//THIS CAN PROBABLY BE TURNED INTO OVERLOADS..SOMEHOW
-	
-	public static Texture loadTexture(String name){
-		Texture tex = textureLoad("res/" + name + ".png", "PNG");
-		return tex;
-	}
-
 }

@@ -1,11 +1,16 @@
 package at.spot.engine.isometric.graphics.tiles;
 
-import static at.spot.engine.isometric.graphics.Graphics.drawTile;
-import static at.spot.engine.isometric.graphics.Graphics.loadTexture;
+import static org.lwjgl.opengl.GL11.GL_QUADS;
+import static org.lwjgl.opengl.GL11.glBegin;
+import static org.lwjgl.opengl.GL11.glEnd;
+import static org.lwjgl.opengl.GL11.glLoadIdentity;
+import static org.lwjgl.opengl.GL11.glTexCoord2f;
+import static org.lwjgl.opengl.GL11.glTranslatef;
+import static org.lwjgl.opengl.GL11.glVertex2f;
 
 import org.newdawn.slick.opengl.Texture;
 
-
+import at.spot.engine.isometric.graphics.textures.TextureManager;
 
 public class Tile {
 
@@ -22,27 +27,49 @@ public class Tile {
 		this.x = x;
 		this.y = y;
 		this.type = type;
-		this.texture = loadTexture(type.textureName);
+		this.texture = TextureManager.instance().loadTexture(type.textureName);
 	}
-	
-	public int getWorldX(){
+
+	public TileType getType() {
+		return this.type;
+	}
+
+	public int getWorldX() {
 		int halfWidth = tileWidth / 2;
 		int screenX = (x - y) * halfWidth;
-		
+
 		return screenX;
 	}
-	
-	public int getWorldY(){
+
+	public int getWorldY() {
 		int halfHeight = tileHeight / 2;
 		int screenY = (x + y) * halfHeight;
-		
+
 		return screenY;
 	}
-	
-	public void draw(){
-		drawTile(texture, x, y, tileWidth, tileHeight);
-	}
-	
 
+	public void draw() {
+
+		int halfWidth = tileWidth / 2;
+		int halfHeight = tileHeight / 2;
+
+		int screenX = (x - y) * halfWidth;
+		int screenY = (x + y) * halfHeight;
+
+		texture.bind();
+		glTranslatef(x, y, 0);
+
+		glBegin(GL_QUADS);
+		glTexCoord2f(0, 0);
+		glVertex2f(screenX, screenY);
+		glTexCoord2f(1, 0);
+		glVertex2f(screenX + halfWidth, screenY + halfHeight);
+		glTexCoord2f(1, 1);
+		glVertex2f(screenX, screenY + tileHeight);
+		glTexCoord2f(0, 1);
+		glVertex2f(screenX - halfWidth, screenY + halfHeight);
+		glEnd();
+		glLoadIdentity();
+	}
 
 }

@@ -1,4 +1,4 @@
-package at.spot.engine.isometric.graphics;
+package at.spot.engine.isometric.graphics.textures;
 import java.io.IOException;
 
 import org.newdawn.slick.Color;
