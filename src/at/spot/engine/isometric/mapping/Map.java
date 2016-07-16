@@ -2,23 +2,15 @@ package at.spot.engine.isometric.mapping;
 
 import java.util.ArrayList;
 
-import at.spot.engine.isometric.graphics.textures.Spritesheet;
 import at.spot.engine.isometric.mapping.tiles.Tile;
 import at.spot.engine.isometric.mapping.tiles.TileDefinition;
 
 public class Map {
 
-	public int res;
+	private int zoomLevel = 1;
+	private ArrayList<Tile> gameMap = new ArrayList<Tile>();
 
-	public ArrayList<Tile> gameMap;
-
-	public Spritesheet spriteSheet;
-	
-	private int zoomLevel;
-	
 	public Map(MapDefinition mapDefinition) {
-		gameMap = new ArrayList<Tile>();
-
 		load(mapDefinition);
 	}
 	
@@ -67,10 +59,6 @@ public class Map {
 			zoomLevel--;
 		}
 		
-	}
-
-	public void centreMap(){
-	
 	}
 
 	public void shiftRight() {
