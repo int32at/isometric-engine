@@ -5,6 +5,7 @@ import at.spot.engine.isometric.game.Game;
 public class Main {
 
 	public static void main(String[] args) {
-		new Game();
+		Game myGame = new Game();
+		myGame.run();
 	}
 }

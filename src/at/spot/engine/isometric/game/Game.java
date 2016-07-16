@@ -7,6 +7,7 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 
+import at.spot.engine.isometric.controls.KeyboardControls;
 import at.spot.engine.isometric.mapping.Map;
 
 public class Game {
@@ -16,9 +17,8 @@ public class Game {
 
 	private int fps;
 	private long lastFPS;
-	
-	int[][] testMap = {
-			{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
+
+	int[][] testMap = { { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
 			{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
 			{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
 			{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
@@ -36,15 +36,13 @@ public class Game {
 			{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 }
 
 	};
-	
-	
+
 	public Game() {
 		initDisplay();
-		
+
 		getDelta();
 		lastFPS = getTime();
 		map = new Map(testMap);
-		run();
 	}
 
 	public int getDelta() {
@@ -61,7 +59,7 @@ public class Game {
 	public void render() {
 		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
 		map.draw();
-		
+
 		Display.update();
 		Display.sync(60);
 	}
@@ -75,41 +73,9 @@ public class Game {
 		fps++;
 	}
 
-	public void tick(int delta) {
-		// timing goes here
-
-		while (Keyboard.next()) {
-			if (Keyboard.getEventKey() == Keyboard.KEY_MINUS) {
-				if (Keyboard.getEventKeyState()) {
-
-				} else {
-					map.zoomOut();
-
-				}
-			} else if (Keyboard.getEventKey() == Keyboard.KEY_EQUALS) {
-				if (Keyboard.getEventKeyState()) {
-
-				} else {
-					map.zoomIn();
-				}
-			}
-		}
-		if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {
-			map.shiftRight();
-		} else if (Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {
-			map.shiftLeft();
-		} else if (Keyboard.isKeyDown(Keyboard.KEY_UP)) {
-			map.shiftUp();
-		} else if (Keyboard.isKeyDown(Keyboard.KEY_DOWN)) {
-
-			map.shiftDown();
-		} else if (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
-			Display.destroy();
-		}
-
-		
+	private void tick(int delta) {
 		updateFPS();
-
+		KeyboardControls.tick(map);
 	}
 
 	public void run() {
@@ -117,7 +83,6 @@ public class Game {
 			int delta = getDelta();
 			tick(delta);
 			render();
-
 		}
 	}
 
