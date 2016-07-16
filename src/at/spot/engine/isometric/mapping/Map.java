@@ -3,8 +3,8 @@ package at.spot.engine.isometric.mapping;
 import java.util.ArrayList;
 
 import at.spot.engine.isometric.graphics.textures.Spritesheet;
-import at.spot.engine.isometric.graphics.tiles.Tile;
-import at.spot.engine.isometric.graphics.tiles.TileType;
+import at.spot.engine.isometric.mapping.tiles.Tile;
+import at.spot.engine.isometric.mapping.tiles.TileDefinition;
 
 public class Map {
 
@@ -16,44 +16,20 @@ public class Map {
 	
 	private int zoomLevel;
 	
-	private static int[][] testMap = { { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
-			{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
-			{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
-			{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
-			{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
-			{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
-			{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
-			{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
-			{ 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1 },
-			{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
-			{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
-			{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
-			{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
-			{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
-			{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
-			{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 }
-
-	};
-	
 	public Map(MapDefinition mapDefinition) {
-		this(mapDefinition.getRaw());
-	}
-		
-	public Map(int[][] inMap){
 		gameMap = new ArrayList<Tile>();
+
+		load(mapDefinition);
+	}
+	
+	private void load(MapDefinition mapDef) {
+		TileDefinition[][] inMap = mapDef.get();
+		
 		for (int y = 0; y < inMap.length; y++){
 			for (int x = 0; x < inMap[y].length; x++){
-				switch(inMap[y][x]){
-				case 0:
-					gameMap.add(new Tile(64, 32, x, y, TileType.water));
-					break;
-				case 1:
-					gameMap.add(new Tile(64,32,x,y,TileType.grass));
-					break;
-				}
+				gameMap.add(new Tile(64, 32, x, y, inMap[x][y].getType()));
 			}
 		}
-		
 	}
 	
 	public void draw(){

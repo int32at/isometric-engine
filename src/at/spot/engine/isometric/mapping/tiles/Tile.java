@@ -1,4 +1,4 @@
-package at.spot.engine.isometric.graphics.tiles;
+package at.spot.engine.isometric.mapping.tiles;
 
 import static org.lwjgl.opengl.GL11.GL_QUADS;
 import static org.lwjgl.opengl.GL11.glBegin;

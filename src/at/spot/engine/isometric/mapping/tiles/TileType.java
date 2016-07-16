@@ -1,4 +1,4 @@
-package at.spot.engine.isometric.graphics.tiles;
+package at.spot.engine.isometric.mapping.tiles;
 
 public enum TileType {
 	grass("grass"), water("water");
