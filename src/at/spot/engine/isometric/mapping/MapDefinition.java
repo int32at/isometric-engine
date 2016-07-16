@@ -9,10 +9,10 @@ public class MapDefinition {
 		TileDefinition water = new TileDefinition(TileType.water);
 		TileDefinition grass = new TileDefinition(TileType.grass);
 		
-		TileDefinition[][] mapData = new TileDefinition[30][30];
+		TileDefinition[][] mapData = new TileDefinition[100][100];
 		
-		for (int i = 0; i < 30; i++) {
-			for (int j = 0; j < 30; j++) {
+		for (int i = 0; i < mapData[0].length; i++) {
+			for (int j = 0; j < mapData[1].length; j++) {
 				mapData[i][j] = grass;
 			}
 		}

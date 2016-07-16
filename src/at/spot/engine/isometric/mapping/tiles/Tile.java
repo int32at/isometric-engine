@@ -21,9 +21,9 @@ public class Tile {
 
 	public boolean selected = false;
 
-	public Tile(int width, int height, int x, int y, TileType type) {
-		this.tileWidth = width;
-		this.tileHeight = height;
+	public Tile(int x, int y, TileType type) {
+		this.tileWidth = 32;
+		this.tileHeight = tileWidth / 2;
 		this.x = x;
 		this.y = y;
 		this.type = type;
