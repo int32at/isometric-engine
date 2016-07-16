@@ -1,18 +1,5 @@
 package at.spot.engine.isometric.graphics;
 
-import static org.lwjgl.opengl.GL11.GL_MODELVIEW;
-import static org.lwjgl.opengl.GL11.GL_NEAREST;
-import static org.lwjgl.opengl.GL11.GL_PROJECTION;
-import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
-import static org.lwjgl.opengl.GL11.GL_TEXTURE_MAG_FILTER;
-import static org.lwjgl.opengl.GL11.GL_TEXTURE_MIN_FILTER;
-import static org.lwjgl.opengl.GL11.glClearColor;
-import static org.lwjgl.opengl.GL11.glEnable;
-import static org.lwjgl.opengl.GL11.glLoadIdentity;
-import static org.lwjgl.opengl.GL11.glMatrixMode;
-import static org.lwjgl.opengl.GL11.glOrtho;
-import static org.lwjgl.opengl.GL11.glTexParameterf;
-import static org.lwjgl.opengl.GL11.glViewport;
 
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
@@ -66,8 +53,6 @@ public class Graphics {
 		
 		Display.update();
 		
-		
-		
 		Display.sync(60);
 	}
 
@@ -85,18 +70,17 @@ public class Graphics {
 	}
 
 	private void setupOpenGL() {
-		glEnable(GL_TEXTURE_2D);
-		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+		GL11.glEnable(GL11.GL_TEXTURE_2D);
+		GL11.glTexParameterf(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_NEAREST);
+		GL11.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
-		glViewport(0, 0, width, height);
-		glMatrixMode(GL_MODELVIEW);
+		GL11.glViewport(0, 0, width, height);
+		GL11.glMatrixMode(GL11.GL_MODELVIEW);
 
-		glMatrixMode(GL_PROJECTION);
-		glLoadIdentity();
+		GL11.glMatrixMode(GL11.GL_PROJECTION);
+		GL11.glLoadIdentity();
 
-		glOrtho(0, width, height, 0, 1, -1);
-		glMatrixMode(GL_MODELVIEW);
+		GL11.glOrtho(0, width, height, 0, 1, -1);
+		GL11.glMatrixMode(GL11.GL_MODELVIEW);
 	}
 }

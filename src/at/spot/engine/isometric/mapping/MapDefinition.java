@@ -7,7 +7,7 @@ import at.spot.engine.isometric.mapping.tiles.TileType;
 public class MapDefinition {
 	
 	public int getTileSize() {
-		return 80;
+		return 60;
 	};
 	
 	public int getMapWidth() {

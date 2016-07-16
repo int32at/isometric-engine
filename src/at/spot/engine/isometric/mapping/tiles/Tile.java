@@ -24,16 +24,12 @@ public class Tile {
 
 	public Tile(int x, int y, TileDefinition tileDefinition) {
 		this.tileWidth = tileDefinition.getSize();
-		this.tileHeight = tileWidth / 2;
+		this.tileHeight = tileWidth;
 		this.x = x;
 		this.y = y;
 		this.tileDefinition = tileDefinition;
 		this.texture = TextureManager.instance().loadTileTexture(tileDefinition);
 	}
-
-//	public TileType getType() {
-//		return this.get;
-//	}
 
 	public int getWorldX() {
 		int halfWidth = tileWidth / 2;
@@ -58,7 +54,7 @@ public class Tile {
 		int screenY = (x + y) * halfHeight;
 
 		texture.bind();
-		glTranslatef(x, y, 0);
+//		glTranslatef(x, y, 0);
 
 		glBegin(GL_QUADS);
 		glTexCoord2f(0, 0);

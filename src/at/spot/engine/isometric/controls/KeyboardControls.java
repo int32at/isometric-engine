@@ -28,16 +28,24 @@ public class KeyboardControls {
 				}
 			}
 		}
+		
 		if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {
 			map.shiftRight();
-		} else if (Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {
+		}
+		
+		if (Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {
 			map.shiftLeft();
-		} else if (Keyboard.isKeyDown(Keyboard.KEY_UP)) {
+		}
+		
+		if (Keyboard.isKeyDown(Keyboard.KEY_UP)) {
 			map.shiftUp();
-		} else if (Keyboard.isKeyDown(Keyboard.KEY_DOWN)) {
-
+		}
+		
+		if (Keyboard.isKeyDown(Keyboard.KEY_DOWN)) {
 			map.shiftDown();
-		} else if (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
+		}
+		
+		if (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
 			Display.destroy();
 		}
 	}
