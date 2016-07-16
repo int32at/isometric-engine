@@ -31,15 +31,15 @@ public class Graphics {
 		return instance;
 	}
 
-	private String TITLE;
-	private int WIDTH;
-	private int HEIGHT;
+	private String title;
+	private int width;
+	private int height;
 
 	public void init(GraphicsDefinition gfx) {
 
-		TITLE = gfx.getTile();
-		WIDTH = gfx.getWidth();
-		HEIGHT = gfx.getHeight();
+		title = gfx.getTile();
+		width = gfx.getWidth();
+		height = gfx.getHeight();
 
 		setupDisplay();
 		setupOpenGL();
@@ -47,17 +47,29 @@ public class Graphics {
 
 	public void render(Map map) {
 		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
+		
+		if (Display.getWidth() != this.width | Display.getHeight() != height) {
+			this.width = Display.getWidth();
+			this.height = Display.getHeight();
+			
+			setupOpenGL();
+		}
+		
 		map.draw();
 		Display.update();
+		
+		
+		
 		Display.sync(60);
 	}
 
 	private void setupDisplay() {
 		try {
-			Display.setDisplayMode(new DisplayMode(WIDTH, HEIGHT));
-			Display.setTitle(TITLE);
+			Display.setDisplayMode(new DisplayMode(width, height));
+			Display.setTitle(title);
 			Display.create();
 			Display.setVSyncEnabled(true);
+			Display.setResizable(true);
 
 		} catch (LWJGLException e) {
 			e.printStackTrace();
@@ -70,13 +82,13 @@ public class Graphics {
 		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 		glClearColor(0.4f, 0.4f, 1.0f, 1.0f);
 
-		glViewport(0, 0, WIDTH, HEIGHT);
+		glViewport(0, 0, width, height);
 		glMatrixMode(GL_MODELVIEW);
 
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
 
-		glOrtho(0, WIDTH, HEIGHT, 0, 1, -1);
+		glOrtho(0, width, height, 0, 1, -1);
 		glMatrixMode(GL_MODELVIEW);
 	}
 }

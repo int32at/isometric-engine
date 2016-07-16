@@ -18,7 +18,6 @@ public class Game {
 		Graphics.instance().init(gfx);
 
 		controls = new KeyboardControls();
-
 		map = new Map(mapDef);
 	}
 
