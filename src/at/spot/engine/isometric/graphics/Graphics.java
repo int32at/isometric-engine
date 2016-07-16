@@ -18,8 +18,10 @@ import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.util.Point;
 
 import at.spot.engine.isometric.mapping.Map;
+import at.spot.engine.isometric.player.Player;
 
 public class Graphics {
 
@@ -44,8 +46,12 @@ public class Graphics {
 		setupDisplay();
 		setupOpenGL();
 	}
+	
+	public Point getSize() {
+		return new Point(width, height);
+	}
 
-	public void render(Map map) {
+	public void render(Map map, Player player) {
 		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
 		
 		if (Display.getWidth() != this.width | Display.getHeight() != height) {
@@ -56,7 +62,11 @@ public class Graphics {
 		}
 		
 		map.draw();
+		player.draw();
+		
 		Display.update();
+		
+		
 		
 		Display.sync(60);
 	}
