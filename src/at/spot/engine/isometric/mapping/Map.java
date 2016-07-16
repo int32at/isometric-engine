@@ -30,10 +30,6 @@ public class Map {
 			t.draw();
 		}
 	}
-	
-	public void update() {
-		Graphics.instance().render(this);
-	}
 
 	public void zoomIn() {
 		if (zoomLevel < 2) {

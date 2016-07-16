@@ -20,6 +20,7 @@ public class TextureManager {
 	}
 	
 	private HashMap<String, Texture> tileTextureCache = new HashMap<String, Texture>();
+	private HashMap<String, Texture> playerTextureCache = new HashMap<String, Texture>();
 	
 	public Texture loadTileTexture(String name) {
 		
@@ -28,6 +29,14 @@ public class TextureManager {
 		}
 		
 		return tileTextureCache.get(name);
+	}
+	
+	public Texture loadPlayerTexture(String name) {
+		if(!playerTextureCache.containsKey(name)) {
+			playerTextureCache.put(name, textureLoad("res/player/" + name + ".png", "PNG"));
+		}
+		
+		return playerTextureCache.get(name);
 	}
 	
 	private Texture textureLoad(String path, String fileType) {

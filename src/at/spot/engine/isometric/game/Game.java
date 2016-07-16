@@ -24,9 +24,8 @@ public class Game {
 	}
 
 	private void update() {
-		Graphics.instance().render(map);
 		controls.update(map);
-		player.update();
+		Graphics.instance().render(map, player);
 	}
 
 
