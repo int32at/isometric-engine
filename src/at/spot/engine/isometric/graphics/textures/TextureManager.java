@@ -2,6 +2,7 @@ package at.spot.engine.isometric.graphics.textures;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
 
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureLoader;
@@ -18,9 +19,15 @@ public class TextureManager {
 		return mgr;
 	}
 	
+	private HashMap<String, Texture> textureCache = new HashMap<String, Texture>();
+	
 	public Texture loadTexture(String name) {
-		Texture tex = textureLoad("res/" + name + ".png", "PNG");
-		return tex;	
+		
+		if(!textureCache.containsKey(name)) {
+			textureCache.put(name, textureLoad("res/" + name + ".png", "PNG"));
+		}
+		
+		return textureCache.get(name);
 	}
 	
 	private Texture textureLoad(String path, String fileType) {

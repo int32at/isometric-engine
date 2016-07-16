@@ -13,23 +13,23 @@ public class Map {
 	public Map(MapDefinition mapDefinition) {
 		load(mapDefinition);
 	}
-	
+
 	private void load(MapDefinition mapDef) {
 		TileDefinition[][] inMap = mapDef.get();
-		
-		for (int y = 0; y < inMap.length; y++){
-			for (int x = 0; x < inMap[y].length; x++){
-				gameMap.add(new Tile(64, 32, x, y, inMap[x][y].getType()));
+
+		for (int y = 0; y < inMap.length; y++) {
+			for (int x = 0; x < inMap[y].length; x++) {
+				gameMap.add(new Tile(x, y, inMap[x][y].getType()));
 			}
 		}
 	}
-	
-	public void draw(){
-		for (Tile t : gameMap){
+
+	public void draw() {
+		for (Tile t : gameMap) {
 			t.draw();
 		}
 	}
-	
+
 	public void zoomIn() {
 		if (zoomLevel < 2) {
 			for (Tile t : gameMap) {
@@ -58,7 +58,7 @@ public class Map {
 			}
 			zoomLevel--;
 		}
-		
+
 	}
 
 	public void shiftRight() {
