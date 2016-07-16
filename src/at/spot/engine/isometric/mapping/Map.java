@@ -15,11 +15,11 @@ public class Map {
 	}
 
 	private void load(MapDefinition mapDef) {
-		TileDefinition[][] inMap = mapDef.get();
+		TileDefinition[][] inMap = mapDef.getTileDefinitions();
 
 		for (int y = 0; y < inMap.length; y++) {
 			for (int x = 0; x < inMap[y].length; x++) {
-				gameMap.add(new Tile(x, y, inMap[x][y].getType()));
+				gameMap.add(new Tile(x, y, inMap[x][y]));
 			}
 		}
 	}
@@ -41,9 +41,7 @@ public class Map {
 				this.shiftRight();
 			}
 			zoomLevel++;
-
 		}
-
 	}
 
 	public void zoomOut() {

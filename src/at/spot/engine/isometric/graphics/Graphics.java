@@ -58,8 +58,6 @@ public class Graphics {
 		map.draw();
 		Display.update();
 		
-		
-		
 		Display.sync(60);
 	}
 
@@ -80,7 +78,7 @@ public class Graphics {
 		glEnable(GL_TEXTURE_2D);
 		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-		glClearColor(0.4f, 0.4f, 1.0f, 1.0f);
+		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
 		glViewport(0, 0, width, height);
 		glMatrixMode(GL_MODELVIEW);

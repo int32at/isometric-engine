@@ -10,29 +10,30 @@ import static org.lwjgl.opengl.GL11.glVertex2f;
 
 import org.newdawn.slick.opengl.Texture;
 
+import at.spot.engine.isometric.config.Config;
 import at.spot.engine.isometric.graphics.textures.TextureManager;
 
 public class Tile {
 
 	public int tileWidth, tileHeight;
 	public int x, y;
-	private TileType type;
+	private TileDefinition tileDefinition;
 	private Texture texture;
 
 	public boolean selected = false;
 
-	public Tile(int x, int y, TileType type) {
-		this.tileWidth = 32;
+	public Tile(int x, int y, TileDefinition tileDefinition) {
+		this.tileWidth = tileDefinition.getSize();
 		this.tileHeight = tileWidth / 2;
 		this.x = x;
 		this.y = y;
-		this.type = type;
-		this.texture = TextureManager.instance().loadTileTexture(type.textureName);
+		this.tileDefinition = tileDefinition;
+		this.texture = TextureManager.instance().loadTileTexture(tileDefinition);
 	}
 
-	public TileType getType() {
-		return this.type;
-	}
+//	public TileType getType() {
+//		return this.get;
+//	}
 
 	public int getWorldX() {
 		int halfWidth = tileWidth / 2;
